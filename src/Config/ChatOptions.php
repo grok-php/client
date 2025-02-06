@@ -19,8 +19,11 @@ class ChatOptions
         ?float $temperature = null,
         ?bool $stream = null
     ) {
-        $this->model = $model ?? Model::tryFrom(DefaultConfig::MODEL->value) ?? Model::GROK_2;
+
+        $this->model = $model ?: Model::tryFrom(DefaultConfig::MODEL->value) ?: Model::GROK_2;
+
         $this->temperature = $temperature ?? (float) DefaultConfig::TEMPERATURE->value;
-        $this->stream = $stream ?? (DefaultConfig::STREAMING->value === 'true');
+
+        $this->stream = $stream ?? filter_var(DefaultConfig::STREAMING->value, FILTER_VALIDATE_BOOLEAN);
     }
 }
