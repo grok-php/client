@@ -3,7 +3,7 @@
     "description": "Grok PHP Client is a robust and community-driven PHP client library for seamless integration with Grok AI API, offering efficient access to advanced AI and data processing capabilities.",
     "type": "library",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "homepage": "https://github.com/grok-php/client",
     "support": {
         "issues": "https://github.com/grok-php/client/issues",
