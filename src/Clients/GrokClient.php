@@ -6,6 +6,7 @@ use GrokPHP\Client\Contracts\ClientInterface;
 use GrokPHP\Client\Traits\HandlesRequests;
 use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Config\ChatOptions;
+use GrokPHP\Client\Enums\DefaultConfig;
 use GuzzleHttp\Client;
 
 /**
@@ -24,7 +25,10 @@ class GrokClient implements ClientInterface
         private readonly GrokConfig $config
     ) {
         $this->apiKey = $config->apiKey;
-        $this->httpClient = new Client(['base_uri' => $config->baseUri]);
+        $this->httpClient = new Client([
+            'base_uri' => $config->baseUri,
+            'timeout' => $config->timeout ?? (int) DefaultConfig::TIMEOUT->value,
+        ]);
     }
 
     /**

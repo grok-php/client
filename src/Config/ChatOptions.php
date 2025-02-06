@@ -2,6 +2,7 @@
 
 namespace GrokPHP\Client\Config;
 
+use GrokPHP\Client\Enums\DefaultConfig;
 use GrokPHP\Client\Enums\Model;
 
 /**
@@ -9,9 +10,17 @@ use GrokPHP\Client\Enums\Model;
  */
 class ChatOptions
 {
+    public Model $model;
+    public float $temperature;
+    public bool $stream;
+
     public function __construct(
-        public readonly Model $model = Model::GROK_2,
-        public readonly float $temperature = 0.0,
-        public readonly bool $stream = false
-    ) {}
+        ?Model $model = null,
+        ?float $temperature = null,
+        ?bool $stream = null
+    ) {
+        $this->model = $model ?? Model::tryFrom(DefaultConfig::MODEL->value) ?? Model::GROK_2;
+        $this->temperature = $temperature ?? (float) DefaultConfig::TEMPERATURE->value;
+        $this->stream = $stream ?? (DefaultConfig::STREAMING->value === 'true');
+    }
 }
