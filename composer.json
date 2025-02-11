@@ -11,8 +11,12 @@
     },
     "autoload": {
         "psr-4": {
-            "GrokPHP\\Client\\": "src/",
-            "Tests\\": "tests/"
+            "GrokPHP\\Client\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "GrokPHP\\Client\\Tests\\": "tests/"
         }
     },
     "authors": [
