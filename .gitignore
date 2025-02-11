@@ -2,4 +2,3 @@ vendor
 .env
 composer.lock
 phpstan.neon
-phpunit.xml
