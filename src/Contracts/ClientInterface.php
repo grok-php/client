@@ -18,8 +18,8 @@ interface ClientInterface
     /**
      * Sends a chat request to the Grok API.
      *
-     * @param array $messages Chat messages in API format.
-     * @param ChatOptions $options Additional request options.
+     * @param  array  $messages  Chat messages in API format.
+     * @param  ChatOptions  $options  Additional request options.
      * @return array The API response.
      */
     public function chat(array $messages, ChatOptions $options): array;

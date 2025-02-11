@@ -1,14 +1,14 @@
 <?php
 
 use GrokPHP\Client\Clients\GrokClient;
-use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Config\ChatOptions;
+use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Enums\Model;
 use GrokPHP\Client\Exceptions\GrokException;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 
 beforeEach(function () {
     $this->validApiKey = 'valid-api-key';
@@ -23,7 +23,7 @@ test('successful chat request returns response', function () {
     // Mock a successful Grok API response
     $mock = new MockHandler([
         new Response(200, [], json_encode([
-            'choices' => [['message' => ['content' => 'Hello from Grok!']]]
+            'choices' => [['message' => ['content' => 'Hello from Grok!']]],
         ])),
     ]);
 
@@ -36,7 +36,7 @@ test('successful chat request returns response', function () {
     $client->setHttpClient($httpClient);
 
     // Set default chat options
-    $options = new ChatOptions();
+    $options = new ChatOptions;
 
     // Call the chat method
     $response = $client->chat(
@@ -55,7 +55,7 @@ test('successful chat request with specific model', function () {
     // Mock a successful Grok API response
     $mock = new MockHandler([
         new Response(200, [], json_encode([
-            'choices' => [['message' => ['content' => 'Hello from Grok Vision Beta!']]]
+            'choices' => [['message' => ['content' => 'Hello from Grok Vision Beta!']]],
         ])),
     ]);
 
@@ -86,7 +86,7 @@ test('successful chat request with specific model', function () {
 test('expired API key results in payment required error', function () {
     // Mock a failed response due to expired API key
     $mock = new MockHandler([
-        new Response(402, [], json_encode(['error' => 'Payment Required']))
+        new Response(402, [], json_encode(['error' => 'Payment Required'])),
     ]);
 
     $handlerStack = HandlerStack::create($mock);
@@ -98,10 +98,10 @@ test('expired API key results in payment required error', function () {
     $client->setHttpClient($httpClient);
 
     // Set chat options
-    $options = new ChatOptions();
+    $options = new ChatOptions;
 
     // Call chat and expect an exception
-    expect(fn() => $client->chat([['role' => 'user', 'content' => 'Hello!']], $options))
+    expect(fn () => $client->chat([['role' => 'user', 'content' => 'Hello!']], $options))
         ->toThrow(GrokException::class, 'API request failed');
 });
 
@@ -111,7 +111,7 @@ test('expired API key results in payment required error', function () {
 test('invalid API key results in unauthorized error', function () {
     // Mock a failed response due to invalid API key
     $mock = new MockHandler([
-        new Response(401, [], json_encode(['error' => 'Unauthorized']))
+        new Response(401, [], json_encode(['error' => 'Unauthorized'])),
     ]);
 
     $handlerStack = HandlerStack::create($mock);
@@ -123,9 +123,9 @@ test('invalid API key results in unauthorized error', function () {
     $client->setHttpClient($httpClient);
 
     // Set chat options
-    $options = new ChatOptions();
+    $options = new ChatOptions;
 
     // Call chat and expect an exception
-    expect(fn() => $client->chat([['role' => 'user', 'content' => 'Hello!']], $options))
+    expect(fn () => $client->chat([['role' => 'user', 'content' => 'Hello!']], $options))
         ->toThrow(GrokException::class, 'API request failed');
 });

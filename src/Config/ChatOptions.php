@@ -11,7 +11,9 @@ use GrokPHP\Client\Enums\Model;
 class ChatOptions
 {
     public Model $model;
+
     public float $temperature;
+
     public bool $stream;
 
     public function __construct(

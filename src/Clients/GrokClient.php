@@ -2,11 +2,11 @@
 
 namespace GrokPHP\Client\Clients;
 
-use GrokPHP\Client\Contracts\ClientInterface;
-use GrokPHP\Client\Traits\HandlesRequests;
-use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Config\ChatOptions;
+use GrokPHP\Client\Config\GrokConfig;
+use GrokPHP\Client\Contracts\ClientInterface;
 use GrokPHP\Client\Enums\DefaultConfig;
+use GrokPHP\Client\Traits\HandlesRequests;
 use GuzzleHttp\Client;
 
 /**
@@ -19,7 +19,7 @@ class GrokClient implements ClientInterface
     /**
      * Constructs a new instance of GrokClient.
      *
-     * @param GrokConfig $config The Grok API configuration.
+     * @param  GrokConfig  $config  The Grok API configuration.
      */
     public function __construct(
         private readonly GrokConfig $config
@@ -33,8 +33,6 @@ class GrokClient implements ClientInterface
 
     /**
      * Returns the API key from the configuration.
-     *
-     * @return string
      */
     public function getApiKey(): string
     {
@@ -44,7 +42,7 @@ class GrokClient implements ClientInterface
     /**
      * Overrides the HTTP client (useful for testing).
      *
-     * @param Client $client Custom Guzzle client.
+     * @param  Client  $client  Custom Guzzle client.
      */
     public function setHttpClient(Client $client): void
     {
@@ -54,8 +52,8 @@ class GrokClient implements ClientInterface
     /**
      * Sends a chat request to Grok API.
      *
-     * @param array $messages Chat messages
-     * @param ChatOptions $options Chat configuration
+     * @param  array  $messages  Chat messages
+     * @param  ChatOptions  $options  Chat configuration
      * @return array API response
      */
     public function chat(array $messages, ChatOptions $options): array
