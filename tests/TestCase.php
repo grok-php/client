@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace GrokPHP\Client\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
