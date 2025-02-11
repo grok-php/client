@@ -29,11 +29,13 @@ Supports **PHP 8.1+**, built with **OOP best practices**, and **fully type-safe*
 
 ## ✨ Features
 
+![Grok PHP Client Demo](assets/images/demo.gif)
+
 ✅ **Plug & Play** – Quickly integrates with Grok AI APIs.  
 ✅ **Type-Safe & Modern** – Fully utilizes **PHP 8.1+ features** like enums, traits, and interfaces.  
 ✅ **Works Everywhere** – Compatible with **CLI scripts, APIs, and any PHP project**.  
 ✅ **Streaming Ready** – Built-in support for **streaming API responses**.  
-✅ **Lightweight & Optimized** – No unnecessary dependencies, **PSR-4 autoloading**.  
+✅ **Lightweight & Optimized** – No unnecessary dependencies, **PSR-4 autoloading**.
 
 ---
 
