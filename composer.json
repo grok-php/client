@@ -61,9 +61,10 @@
         "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {
-        "pestphp/pest": "^3.7",
+        "laravel/pint": "^1.20",
         "mockery/mockery": "^1.6.12",
         "nunomaduro/collision": "^8.5",
+        "pestphp/pest": "^3.7",
         "phpstan/phpstan": "^1.12"
     },
     "minimum-stability": "dev",
@@ -71,7 +72,8 @@
     "scripts": {
         "test": "vendor/bin/pest",
         "test:unit": "pest --colors=always",
-        "test:types": "phpstan analyse src --ansi"
+        "test:types": "phpstan analyse src --ansi",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
