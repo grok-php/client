@@ -18,6 +18,7 @@ Supports **PHP 8.2+**, built with **OOP best practices**, and **fully type-safe*
 - [Installation](#installation)
 - [Quick Start](#quick-start)
   - [Basic Usage](#basic-usage)
+  - [Vision Analysis](#vision-analysis-image-recognition)
   - [Advanced Configuration](#advanced-configuration)
 - [Available Grok AI Models](#available-grok-ai-models)
 - [Streaming Responses](#streaming-responses)
@@ -88,6 +89,33 @@ echo "AI Response: " . $response['choices'][0]['message']['content'];
 
 ---
 
+### Vision Analysis (Image Recognition)
+The **Vision API** allows you to send images for analysis using **Grok-2-Vision** models.
+
+```php
+use GrokPHP\Client\Clients\GrokClient;
+use GrokPHP\Client\Config\GrokConfig;
+
+// Initialize the client
+$config = new GrokConfig('your-api-key');
+$client = new GrokClient($config);
+
+// Use the Vision API to analyze an image
+$response = $client->vision()->analyze('https://example.com/image.jpg', 'Describe this image.');
+
+echo "Vision Response: " . $response['choices'][0]['message']['content'];
+```
+
+#### Supported Models for Vision
+| Model Enum                  | API Model Name       | Description                      |
+|-----------------------------|----------------------|----------------------------------|
+| `Model::GROK_2_VISION`        | grok-2-vision        | Base Vision Model               |
+| `Model::GROK_2_VISION_LATEST` | grok-2-vision-latest | Latest Vision Model             |
+| `Model::GROK_2_VISION_1212`   | grok-2-vision-1212   | Default model for image analysis |
+
+**Note:** If you attempt to use an **unsupported model** for vision, an exception will be thrown.
+
+---
 ### **Advanced Configuration**
 
 ```php
