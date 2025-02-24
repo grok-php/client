@@ -6,6 +6,7 @@ use GrokPHP\Client\Config\ChatOptions;
 use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Contracts\ClientInterface;
 use GrokPHP\Client\Enums\DefaultConfig;
+use GrokPHP\Client\Exceptions\GrokException;
 use GrokPHP\Client\Traits\HandlesRequests;
 use GuzzleHttp\Client;
 
@@ -52,9 +53,10 @@ class GrokClient implements ClientInterface
     /**
      * Sends a chat request to Grok API.
      *
-     * @param  array  $messages  Chat messages
-     * @param  ChatOptions  $options  Chat configuration
+     * @param array $messages Chat messages
+     * @param ChatOptions $options Chat configuration
      * @return array API response
+     * @throws GrokException
      */
     public function chat(array $messages, ChatOptions $options): array
     {

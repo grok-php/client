@@ -30,7 +30,7 @@ trait HandlesRequests
         try {
             $response = $this->httpClient->post($endpoint, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.$this->apiKey,
+                    'Authorization' => "Bearer {$this->apiKey}",
                     'Content-Type' => 'application/json',
                 ],
                 'json' => $payload,
@@ -38,7 +38,7 @@ trait HandlesRequests
 
             return json_decode($response->getBody()->getContents(), true, flags: JSON_THROW_ON_ERROR);
         } catch (RequestException $e) {
-            throw new GrokException('API request failed: '.$e->getMessage());
+            throw GrokException::fromResponse($e->getResponse());
         }
     }
 }
