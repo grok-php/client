@@ -3,8 +3,8 @@
 namespace GrokPHP\Client\Tests\Feature;
 
 use GrokPHP\Client\Clients\GrokClient;
-use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Config\ChatOptions;
+use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Enums\Model;
 use GrokPHP\Client\Exceptions\GrokException;
 use PHPUnit\Framework\TestCase;
