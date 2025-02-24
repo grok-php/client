@@ -5,6 +5,15 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [v1.3.0] - 2025-02-24
+### New Features
+- **Vision API Support:** Added a new **Vision** class to analyze images using the Grok-2-Vision models.
+    - Supports `grok-2-vision`, `grok-2-vision-latest`, and `grok-2-vision-1212` models.
+    - Allows image analysis through `vision()->analyze($image, $message)`.
+    - Automatically validates supported models to prevent incorrect usage.
+
+---
+
 ## [v1.2.0] - 2025-02-24
 ### Improvements
 - **Replaced Pest with PHPUnit** for testing, aligning with industry standards.
