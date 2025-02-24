@@ -23,6 +23,6 @@ class GrokConfig
         if (! $this->apiKey) {
             throw GrokException::missingApiKey();
         }
-        $this->timeout = (int) DefaultConfig::TIMEOUT->value;
+        $this->timeout = $timeout ?? (int) DefaultConfig::TIMEOUT->value;
     }
 }
