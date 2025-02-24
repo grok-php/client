@@ -68,4 +68,12 @@ class GrokClient implements ClientInterface
             'stream' => $options->stream,
         ]);
     }
+
+    /**
+     * Returns a Vision instance for image analysis.
+     */
+    public function vision(): Vision
+    {
+        return new Vision($this);
+    }
 }

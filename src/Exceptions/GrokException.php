@@ -21,6 +21,7 @@ class GrokException extends Exception
         'invalid_request' => 'Invalid Request',
         'authentication_error' => 'Authentication Error',
         'invalid_api_key' => 'Invalid API Key',
+        'unsupported_model_for_images' => 'Unsupported Model for Images',
     ];
 
     /**

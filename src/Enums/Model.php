@@ -23,4 +23,19 @@ enum Model: string
     {
         return self::GROK_2;
     }
+
+    public static function fromValue(string $value): self
+    {
+        return match ($value) {
+            self::GROK_2_VISION_1212->value => self::GROK_2_VISION_1212,
+            self::GROK_2_VISION->value => self::GROK_2_VISION,
+            self::GROK_2_VISION_LATEST->value => self::GROK_2_VISION_LATEST,
+            self::GROK_2_1212->value => self::GROK_2_1212,
+            self::GROK_2->value => self::GROK_2,
+            self::GROK_2_LATEST->value => self::GROK_2_LATEST,
+            self::GROK_BETA->value => self::GROK_BETA,
+            self::GROK_VISION_BETA->value => self::GROK_VISION_BETA,
+            default => throw new \InvalidArgumentException('Invalid model value'),
+        };
+    }
 }
