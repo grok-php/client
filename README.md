@@ -3,10 +3,10 @@
 ![Grok PHP Client](assets/images/grok-client.png)
 
 **A lightweight, framework-agnostic PHP client for interacting with Grok AI APIs.**  
-Supports **PHP 8.1+**, built with **OOP best practices**, and **fully type-safe**.
+Supports **PHP 8.2+**, built with **OOP best practices**, and **fully type-safe**.
 
 [![Latest Version](https://img.shields.io/packagist/v/grok-php/client)](https://packagist.org/packages/grok-php/client)
-[![PHP Version](https://img.shields.io/badge/PHP-8.1%2B-blue)](https://php.net)
+[![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-blue)](https://php.net)
 ![GitHub Workflow Status](https://github.com/grok-php/client/actions/workflows/run-tests.yml/badge.svg)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](LICENSE)
 
