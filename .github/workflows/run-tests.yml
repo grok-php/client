@@ -39,10 +39,10 @@ jobs:
       - name: Install Dependencies (${{ matrix.stability }})
         run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
-      - name: Create phpunit.xml
+      - name: Configure PHPUnit
         run: |
           cp phpunit.xml.dist phpunit.xml
-          echo "<php><env name='GROK_API_KEY' value='${{ secrets.GROK_API_KEY }}' /></php>" >> phpunit.xml
+          sed -i 's|<!-- <php>.*</php> -->|<php><env name="GROK_API_KEY" value="${{ secrets.GROK_API_KEY }}" /></php>|g' phpunit.xml
 
       - name: List Installed Dependencies
         run: composer show -D
