@@ -20,7 +20,7 @@ class GrokConfig
     ) {
         $this->apiKey = $apiKey ?? getenv('GROK_API_KEY');
 
-        if(! $this->apiKey) {
+        if (! $this->apiKey) {
             throw GrokException::missingApiKey();
         }
         $this->timeout = (int) DefaultConfig::TIMEOUT->value;

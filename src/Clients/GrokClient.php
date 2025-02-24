@@ -53,9 +53,10 @@ class GrokClient implements ClientInterface
     /**
      * Sends a chat request to Grok API.
      *
-     * @param array $messages Chat messages
-     * @param ChatOptions $options Chat configuration
+     * @param  array  $messages  Chat messages
+     * @param  ChatOptions  $options  Chat configuration
      * @return array API response
+     *
      * @throws GrokException
      */
     public function chat(array $messages, ChatOptions $options): array
