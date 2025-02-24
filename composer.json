@@ -69,8 +69,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "test": "vendor/bin/pest",
-        "test:unit": "pest --colors=always",
+        "test": "vendor/bin/phpunit",
         "test:types": "phpstan analyse src --ansi",
         "format": "vendor/bin/pint"
     },
