@@ -8,4 +8,4 @@
 /phpstan.neon export-ignore
 /tests export-ignore
 /.editorconfig export-ignore
-/CONTRIBUTE.md export-ignore
+/CONTRIBUTING.md export-ignore
