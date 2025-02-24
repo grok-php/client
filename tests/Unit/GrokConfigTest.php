@@ -19,4 +19,22 @@ class GrokConfigTest extends TestCase
         $this->assertNotEmpty($config->baseUri);
         $this->assertIsNumeric($config->timeout);
     }
+
+    public function test_it_allows_custom_values()
+    {
+        $customBaseUri = 'https://custom-api.grok.dev';
+        $customTimeout = 120;
+
+        // Instantiate GrokConfig with custom values
+        $config = new GrokConfig(
+            apiKey: 'test-api-key',
+            baseUri: $customBaseUri,
+            timeout: $customTimeout
+        );
+
+        // Assertions
+        $this->assertEquals('test-api-key', $config->apiKey);
+        $this->assertEquals($customBaseUri, $config->baseUri);
+        $this->assertEquals($customTimeout, $config->timeout);
+    }
 }
