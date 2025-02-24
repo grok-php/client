@@ -71,6 +71,7 @@ class GrokException extends Exception
 
     /**
      * Convert the exception details to an array.
+     *
      * @throws JsonException
      */
     public function toArray(): array
@@ -86,6 +87,7 @@ class GrokException extends Exception
 
     /**
      * Convert the exception details to JSON.
+     *
      * @throws JsonException
      */
     public function toJson(): string
@@ -95,6 +97,7 @@ class GrokException extends Exception
 
     /**
      * Create a `GrokException` from an API response.
+     *
      * @throws JsonException
      */
     public static function fromResponse(ResponseInterface $response): self
@@ -125,6 +128,7 @@ class GrokException extends Exception
 
     /**
      * Handle exceptions from Guzzle.
+     *
      * @throws JsonException
      */
     public static function fromGuzzleException(ClientException $exception): self
@@ -138,7 +142,7 @@ class GrokException extends Exception
     public static function missingApiKey(): self
     {
         return new self(
-            "No API key provided. Specify your API key in an Authorization header using Bearer auth.",
+            'No API key provided. Specify your API key in an Authorization header using Bearer auth.',
             400,
             'authentication_error'
         );
@@ -150,7 +154,7 @@ class GrokException extends Exception
     public static function invalidApiKey(): self
     {
         return new self(
-            "Incorrect API key provided. Obtain an API key from https://console.x.ai.",
+            'Incorrect API key provided. Obtain an API key from https://console.x.ai.',
             400,
             'invalid_api_key'
         );
@@ -162,7 +166,7 @@ class GrokException extends Exception
     public static function invalidRequest(): self
     {
         return new self(
-            "Failed to deserialize the JSON body into the target type. Ensure request structure is correct.",
+            'Failed to deserialize the JSON body into the target type. Ensure request structure is correct.',
             422,
             'invalid_request'
         );
