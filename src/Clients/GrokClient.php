@@ -17,16 +17,19 @@ class GrokClient implements ClientInterface
 {
     use HandlesRequests;
 
+    protected Client $httpClient;
+
     /**
      * Constructs a new instance of GrokClient.
      *
      * @param  GrokConfig  $config  The Grok API configuration.
      */
     public function __construct(
-        private readonly GrokConfig $config
+        private readonly GrokConfig $config,
+        $httpClient = null
     ) {
         $this->apiKey = $config->apiKey;
-        $this->httpClient = new Client([
+        $this->httpClient = $httpClient ?? new Client([
             'base_uri' => $config->baseUri,
             'timeout' => $config->timeout ?? (int) DefaultConfig::TIMEOUT->value,
         ]);
