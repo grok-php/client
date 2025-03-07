@@ -39,6 +39,14 @@ body:
       placeholder: 8.2.0
     validations:
       required: true
+  - type: input
+    id: grok-model
+    attributes:
+      label: Grok Model
+      description: What version of the Grok Model are you running? Please be as specific as possible
+      placeholder: grok-2-latest
+    validations:
+      required: true
   - type: dropdown
     id: operating-systems
     attributes:
