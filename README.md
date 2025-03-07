@@ -209,25 +209,7 @@ try {
 ---
 ## **Testing**
 
-To run PHPUnit tests, you need to set up your API key. Follow these steps:
-
-1. **Copy the default PHPUnit configuration file:**
-```sh
-cp phpunit.xml.dist phpunit.xml
-```
-
-2. **Update the API key in `phpunit.xml`:**
-Open the file and replace `your-grok-api-key-here` with your actual API key:
-```xml
-<php>
-   <env name="GROK_API_KEY" value="your-grok-api-key-here"/>
-</php>
-```
-
-3. **Obtain an API Key:**  
-If you don’t have an API key, sign up at [Grok AI](https://x.ai/api/) and create one.
-
-4. **Run the tests with PHPUnit:**
+**Run the tests with PHPUnit:**
 ```sh
 composer test
 ```
