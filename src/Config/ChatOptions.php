@@ -16,10 +16,13 @@ class ChatOptions
 
     public bool $stream;
 
+    public ?array $responseFormat;
+
     public function __construct(
         ?Model $model = null,
         ?float $temperature = null,
-        ?bool $stream = null
+        ?bool $stream = null,
+        ?array $responseFormat = null
     ) {
 
         $this->model = $model ?: Model::tryFrom(DefaultConfig::MODEL->value) ?: Model::GROK_2;
@@ -27,5 +30,7 @@ class ChatOptions
         $this->temperature = $temperature ?? (float) DefaultConfig::TEMPERATURE->value;
 
         $this->stream = $stream ?? filter_var(DefaultConfig::STREAMING->value, FILTER_VALIDATE_BOOLEAN);
+
+        $this->responseFormat = $responseFormat ? (array) $responseFormat : null;
     }
 }

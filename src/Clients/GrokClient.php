@@ -69,6 +69,7 @@ class GrokClient implements ClientInterface
             'messages' => $messages,
             'temperature' => $options->temperature,
             'stream' => $options->stream,
+            'response_format' => $options->responseFormat,
         ]);
     }
 
