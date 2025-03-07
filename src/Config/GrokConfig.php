@@ -16,7 +16,7 @@ class GrokConfig
     public function __construct(
         public ?string $apiKey = null,
         public readonly string $baseUri = DefaultConfig::BASE_URI->value,
-        public int $timeout = 0
+        public ?int $timeout = null
     ) {
         $this->apiKey = $apiKey ?? getenv('GROK_API_KEY');
 
