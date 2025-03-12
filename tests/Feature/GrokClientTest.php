@@ -61,6 +61,13 @@ class GrokClientTest extends TestCase
 
     public function test_chat_request_returns_response_in_specific_format(): void
     {
+        $this->client->setHttpClient(new Client(['handler' => HandlerStack::create(new MockHandler([
+            ClientFake::fakeSuccessResponse([
+                'name' => 'Taylor',
+                'city' => 'Little Rock'
+            ]),
+        ]))]));
+
         $messages = [
             ['role' => 'system', 'content' => 'You are a helpful assistant.'],
             ['role' => 'user', 'content' => 'Return a json object with a random name (string) and random city (string).'],
@@ -69,10 +76,12 @@ class GrokClientTest extends TestCase
         $options = new ChatOptions(model: Model::GROK_2_1212, temperature: 0.7, stream: false, responseFormat: ['type' => 'json_object']);
         $response = $this->client->chat($messages, $options);
         $content = $response['choices'][0]['message']['content'];
-        $contentArray = json_decode($content, true);
+        $decodedContent = json_decode($response['choices'][0]['message']['content'], true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertJson($content);
-        $this->assertArrayHasKey('name', $contentArray);
-        $this->assertArrayHasKey('city', $contentArray);
+        $this->assertArrayHasKey('name', $decodedContent);
+        $this->assertArrayHasKey('city', $decodedContent);
+        $this->assertSame('Taylor', $decodedContent['name']);
+        $this->assertSame('Little Rock', $decodedContent['city']);
     }
 }
