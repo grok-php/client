@@ -7,9 +7,11 @@ use GrokPHP\Client\Clients\Vision;
 use GrokPHP\Client\Config\GrokConfig;
 use GrokPHP\Client\Enums\Model;
 use GrokPHP\Client\Exceptions\GrokException;
+use GrokPHP\Client\Testing\VisionFake;
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
-use Mockery;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use JsonException;
 use PHPUnit\Framework\TestCase;
 
 class VisionTest extends TestCase
@@ -19,26 +21,34 @@ class VisionTest extends TestCase
     /**
      * @throws GrokException
      */
+    private Vision $visionSuccess;
+
+    private Vision $visionFailure;
+
+    /**
+     * @throws GrokException
+     * @throws JsonException
+     */
     protected function setUp(): void
     {
         parent::setUp();
 
-        // Mock Configuration
-        $config = new GrokConfig(getenv('GROK_API_KEY'));
+        $config = new GrokConfig('fake-api-key');
 
-        // Mock HTTP Client
-        $httpClientMock = Mockery::mock(Client::class);
-        $httpClientMock->shouldReceive('post')->andReturn(
-            new Response(200, [], json_encode(['choices' => [['message' => ['content' => 'This is a dog.']]]]))
-        );
+        $successMock = new MockHandler([
+            VisionFake::fakeVisionSuccessResponse(),
+        ]);
+        $successHttpClient = new Client(['handler' => HandlerStack::create($successMock)]);
+        $successGrokClient = new GrokClient($config, $successHttpClient);
+        $this->visionSuccess = new Vision($successGrokClient);
 
-        // Mock GrokClient
-        $client = Mockery::mock(GrokClient::class, [$config])->makePartial();
-        $client->shouldReceive('chat')->andReturnUsing(function ($messages) {
-            return ['choices' => [['message' => ['content' => 'Mocked Vision Response']]]];
-        });
-
-        $this->vision = new Vision($client);
+        $failureMock = new MockHandler([
+            VisionFake::fakeVisionInvalidModelResponse(),
+            VisionFake::fakeVisionImageNotFoundResponse(),
+        ]);
+        $failureHttpClient = new Client(['handler' => HandlerStack::create($failureMock)]);
+        $failureGrokClient = new GrokClient($config, $failureHttpClient);
+        $this->visionFailure = new Vision($failureGrokClient);
     }
 
     /**
@@ -48,11 +58,14 @@ class VisionTest extends TestCase
      */
     public function test_analyze_image_successfully(): void
     {
-        $response = $this->vision->analyze('https://www.shutterstock.com/image-photo/young-english-cocker-spaniel-puppy-600nw-2026045151.jpg', 'Describe this image');
+        $response = $this->visionSuccess->analyze(
+            'https://www.shutterstock.com/image-photo/young-english-cocker-spaniel-puppy-600nw-2026045151.jpg',
+            'Describe this image'
+        );
 
-        $this->assertIsArray($response);
         $this->assertArrayHasKey('choices', $response);
-        $this->assertEquals('Mocked Vision Response', $response['choices'][0]['message']['content']);
+        $this->assertSame('assistant', $response['choices'][0]['message']['role']);
+        $this->assertStringContainsString('cat', $response['choices'][0]['message']['content']);
     }
 
     /**
@@ -63,17 +76,24 @@ class VisionTest extends TestCase
         $this->expectException(GrokException::class);
         $this->expectExceptionMessage('The model does not support image input but some images are present in the request.');
 
-        $this->vision->analyze('https://www.shutterstock.com/image-photo/young-english-cocker-spaniel-puppy-600nw-2026045151.jpg', 'Describe this image', Model::GROK_2);
+        $this->visionFailure->analyze(
+            'https://www.shutterstock.com/image-photo/young-english-cocker-spaniel-puppy-600nw-2026045151.jpg',
+            'Describe this image',
+            Model::GROK_2
+        );
     }
 
     /**
-     * ✅ Test missing image error.
+     * Test missing image error.
      */
     public function test_throws_exception_when_image_not_found(): void
     {
         $this->expectException(GrokException::class);
-        $this->expectExceptionMessage('Image file not found or invalid URL: /path/to/nonexistent/image.jpg');
+        $this->expectExceptionMessage('Error fetching image from URL: https://invalid-url.com/nonexistent.jpg');
 
-        $this->vision->analyze('/path/to/nonexistent/image.jpg', 'Describe this image');
+        $this->visionFailure->analyze(
+            'https://invalid-url.com/nonexistent.jpg',
+            'Describe this image'
+        );
     }
 }
