@@ -2,7 +2,7 @@
 
 ![Grok PHP Client](assets/images/grok-client.png)
 
-**A lightweight, framework-agnostic PHP client for interacting with Grok AI APIs.**  
+**A lightweight, framework-agnostic PHP client for interacting with Grok AI APIs.**
 Supports **PHP 8.2+**, built with **OOP best practices**, and **fully type-safe**.
 
 [![Latest Version](https://img.shields.io/packagist/v/grok-php/client)](https://packagist.org/packages/grok-php/client)
@@ -22,6 +22,7 @@ Supports **PHP 8.2+**, built with **OOP best practices**, and **fully type-safe*
   - [Advanced Configuration](#advanced-configuration)
 - [Available Grok AI Models](#available-grok-ai-models)
 - [Streaming Responses](#streaming-responses)
+- [Response format](#response-format)
 - [Error Handling](#error-handling)
 - [Testing](#testing)
 - [Security](#security)
@@ -34,10 +35,10 @@ Supports **PHP 8.2+**, built with **OOP best practices**, and **fully type-safe*
 
 ![Grok PHP Client Demo](assets/images/demo.gif)
 
-- **Easy Integration** – Seamlessly connects with Grok AI APIs.  
-- **Modern PHP Features** – Utilizes PHP 8.2+ features like enums and traits.  
-- **Framework Agnostic** – Works with any PHP project, CLI scripts, or web applications.  
-- **Streaming Support** – Built-in support for real-time responses.  
+- **Easy Integration** – Seamlessly connects with Grok AI APIs.
+- **Modern PHP Features** – Utilizes PHP 8.2+ features like enums and traits.
+- **Framework Agnostic** – Works with any PHP project, CLI scripts, or web applications.
+- **Streaming Support** – Built-in support for real-time responses.
 - **Lightweight & Efficient** – Optimized with PSR-4 autoloading and minimal dependencies.
 
 ---
@@ -139,7 +140,7 @@ $messages = [
 // Custom API settings
 $options = new ChatOptions(
     model: Model::GROK_2_LATEST,
-    temperature: 1.2, 
+    temperature: 1.2,
     stream: false
 );
 
@@ -151,8 +152,8 @@ echo "AI Says: " . $response['choices'][0]['message']['content'];
 
 ## **Available Grok AI Models**
 
-Grok AI offers multiple models optimized for different use cases.  
-These models are available in the `Model` enum inside our package:  
+Grok AI offers multiple models optimized for different use cases.
+These models are available in the `Model` enum inside our package:
 📄 `src/Enums/Model.php`
 
 | Model Enum                   | API Model Name       | Description                                         |
@@ -172,7 +173,7 @@ These models are available in the `Model` enum inside our package:
 
 ## **Streaming Responses**
 
-The Grok API supports streaming responses for real-time interaction.  
+The Grok API supports streaming responses for real-time interaction.
 Enable it by setting `stream: true`:
 
 ```php
@@ -183,9 +184,20 @@ Streaming can be useful for chatbots, real-time applications, and CLI assistants
 
 ---
 
+## **Response format**
+
+The Grok API supports setting a response format, also refered to structured outputs, for the `grok-2-1212` model.
+
+```php
+$options = new ChatOptions(model: Model::GROK_2_1212, temperature: 0.7, stream: false, responseFormat: ['type' => 'json_object']);
+$response = $client->chat($messages, $options);
+```
+
+---
+
 ## **Error Handling**
 
-This package includes built-in error handling with a dedicated exception class.  
+This package includes built-in error handling with a dedicated exception class.
 Common errors and their messages:
 
 | Error Type         | HTTP Code | Message |
@@ -221,7 +233,7 @@ vendor/bin/phpunit
 
 ## **Security**
 
-If you discover a security vulnerability, please report it via email:  
+If you discover a security vulnerability, please report it via email:
 📩 [thefeqy@gmail.com](mailto:thefeqy@gmail.com)
 
 ---

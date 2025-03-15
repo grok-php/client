@@ -12,7 +12,7 @@ class ClientFake
      *
      * @throws JsonException
      */
-    public static function fakeSuccessResponse(): Response
+    public static function fakeSuccessResponse(?array $data = null): Response
     {
         return new Response(200, ['Content-Type' => 'application/json'], json_encode([
             'id' => '7c51076a-e4cc-4855-8dbe-66c26818e35f',
@@ -24,7 +24,7 @@ class ClientFake
                     'index' => 0,
                     'message' => [
                         'role' => 'assistant',
-                        'content' => json_encode([
+                        'content' => json_encode($data ?? [
                             'framework_name' => 'Laravel',
                             'release_date' => '2011',
                             'programming_language' => 'PHP',
