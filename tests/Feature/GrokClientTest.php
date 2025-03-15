@@ -64,7 +64,7 @@ class GrokClientTest extends TestCase
         $this->client->setHttpClient(new Client(['handler' => HandlerStack::create(new MockHandler([
             ClientFake::fakeSuccessResponse([
                 'name' => 'Taylor',
-                'city' => 'Little Rock'
+                'city' => 'Little Rock',
             ]),
         ]))]));
 
